@@ -754,9 +754,9 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
   }
 
   return (
-    <main className="flex min-h-screen flex-1 overflow-visible bg-reenz-cream text-[#242d23] max-md:block">
-      <aside className="sticky top-0 flex h-screen w-[240px] shrink-0 flex-col border-r border-reenz-border bg-reenz-paper max-md:hidden" aria-label="Admin navigation">
-        <Link className="flex h-[76px] items-center border-b border-reenz-border px-6 text-[0.85rem] font-bold uppercase tracking-[0.14em] text-reenz-ink no-underline" href="/" aria-label="Reenz Organic home">
+    <main className="admin-layout">
+      <aside className="admin-sidebar" aria-label="Admin navigation">
+        <Link className="admin-brand" href="/" aria-label="Reenz Organic home">
           <Image
             src={resolveStoreImage("/assets/images/logo.png")}
             alt="Reenz Organic"
@@ -765,11 +765,11 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
             priority
           />
         </Link>
-        <div className="px-4 py-6">
-          <p className="mb-3 px-3 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-reenz-muted">Workspace</p>
-          <nav className="grid gap-1.5" aria-label="Dashboard sections">
+        <div className="admin-sidebar-navigation">
+          <p className="admin-sidebar-label">Workspace</p>
+          <nav className="admin-sidebar-links" aria-label="Dashboard sections">
             <Link
-              className={`flex min-h-11 items-center gap-3 rounded-[0.65rem] px-3 text-sm font-semibold no-underline transition ${section === "overview" ? "bg-reenz-green text-white" : "text-reenz-muted hover:bg-reenz-sage/60 hover:text-reenz-forest"}`}
+              className={`admin-sidebar-link ${section === "overview" ? "is-active" : ""}`}
               href="/admin"
               aria-current={section === "overview" ? "page" : undefined}
             >
@@ -777,7 +777,7 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
               Overview
             </Link>
             <Link
-              className={`flex min-h-11 items-center gap-3 rounded-[0.65rem] px-3 text-sm font-semibold no-underline transition ${section === "products" ? "bg-reenz-green text-white" : "text-reenz-muted hover:bg-reenz-sage/60 hover:text-reenz-forest"}`}
+              className={`admin-sidebar-link ${section === "products" ? "is-active" : ""}`}
               href="/admin/products"
               aria-current={section === "products" ? "page" : undefined}
             >
@@ -785,31 +785,31 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
               Products
             </Link>
             <Link
-              className={`flex min-h-11 items-center gap-3 rounded-[0.65rem] px-3 text-sm font-semibold no-underline transition ${section === "orders" ? "bg-reenz-green text-white" : "text-reenz-muted hover:bg-reenz-sage/60 hover:text-reenz-forest"}`}
+              className={`admin-sidebar-link ${section === "orders" ? "is-active" : ""}`}
               href="/admin/orders"
               aria-current={section === "orders" ? "page" : undefined}
             >
               <ShoppingBag aria-hidden="true" />
               Orders
-              <span className="ml-auto grid size-6 place-items-center rounded-full bg-reenz-sage text-xs font-bold text-reenz-green">{dataReady ? orders.length : "—"}</span>
+              <span className="admin-nav-count">{dataReady ? orders.length : "—"}</span>
             </Link>
           </nav>
         </div>
-        <div className="mt-auto border-t border-reenz-border p-4">
-          <span className="block px-3 pb-2 text-[0.62rem] font-bold tracking-[0.14em] text-reenz-muted">REENZ ORGANIC</span>
-          <Link className="flex min-h-11 items-center gap-2 px-3 text-sm font-semibold text-reenz-muted no-underline" href="/" target="_blank" rel="noreferrer">
+        <div className="admin-sidebar-footer">
+          <span>REENZ ORGANIC</span>
+          <Link href="/" target="_blank" rel="noreferrer">
             View storefront
             <ArrowUpRight aria-hidden="true" />
           </Link>
         </div>
       </aside>
-      <div className="min-w-0 flex-1">
-      <header className="flex min-h-[76px] items-center justify-between gap-4 border-b border-reenz-border bg-reenz-paper px-5 lg:px-[3.5vw]">
-        <p className="m-0 text-sm text-reenz-muted">
+      <div className="admin-workspace">
+      <header className="admin-header">
+        <p className="admin-breadcrumb">
           Store management <span>/</span> <strong>{section.charAt(0).toUpperCase() + section.slice(1)}</strong>
         </p>
-        <div className="flex items-center gap-2">
-          <Link className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-reenz-border px-3 text-xs font-semibold text-reenz-green no-underline" href="/" target="_blank" rel="noreferrer">
+        <div className="admin-header-actions">
+          <Link className="admin-header-store-link" href="/" target="_blank" rel="noreferrer">
             View store <ArrowUpRight aria-hidden="true" />
           </Link>
           <Button variant="outline" size="sm" onClick={signOut}>
@@ -818,18 +818,18 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
         </div>
       </header>
 
-      <section className="mx-auto w-full max-w-[1500px] px-5 py-8 lg:px-10 lg:py-10" id={section}>
-        <div className="mb-7 flex items-end justify-between gap-5 max-md:items-start">
+      <section className="admin-main" id={section}>
+        <div className="admin-topline">
           <div>
-            <p className="mb-2 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-reenz-leaf">Your organic storefront</p>
-            <h1 className="m-0 font-heading text-[clamp(2rem,3vw,3rem)] font-medium leading-tight text-reenz-forest">
+            <p className="admin-eyebrow">Your organic storefront</p>
+            <h1>
               {section === "overview"
                 ? "Store overview"
                 : section === "products"
                   ? "Products"
                   : "Orders"}
             </h1>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-reenz-muted">
+            <p className="admin-subtitle">
               {section === "overview"
                 ? "A clear view of your catalog and cash-on-delivery orders."
                 : section === "products"
@@ -838,7 +838,7 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
             </p>
           </div>
           {(section === "overview" || section === "products") && (
-            <Button className="inline-flex min-h-11 items-center gap-2 rounded-lg px-4" onClick={openCreateDialog}>
+            <Button className="admin-add-product" onClick={openCreateDialog}>
               <Package aria-hidden="true" />
               Add product
             </Button>
@@ -846,7 +846,7 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
         </div>
 
         {error && (
-          <div className="mb-5 flex items-center justify-between rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+          <div className="admin-alert mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
             <span>{error}</span>
             <Button variant="outline" size="sm" onClick={() => void retryLoading()} disabled={loading}>
               {loading ? "Retrying…" : "Try again"}
@@ -854,49 +854,49 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
           </div>
         )}
         {success && (
-          <p className="mb-5 rounded-xl border border-reenz-leaf/20 bg-reenz-sage px-4 py-3 text-sm text-reenz-green" role="status">
+          <p className="admin-alert admin-success mb-5 rounded-xl border border-reenz-leaf/20 bg-reenz-sage px-4 py-3 text-sm text-reenz-green" role="status">
             {success}
           </p>
         )}
 
         {section === "overview" ? (
           <>
-            <div className="mb-6 grid grid-cols-2 gap-4 xl:grid-cols-4">
-              <div className="grid grid-cols-[auto_1fr] items-center gap-3 rounded-xl border border-reenz-border bg-reenz-paper p-4">
-                <span className="grid size-11 place-items-center rounded-xl bg-reenz-green text-white"><Package aria-hidden="true" /></span>
-                <span className="grid gap-0.5"><strong className="text-2xl text-reenz-forest">{dataReady ? products.length : "—"}</strong><span className="text-xs text-reenz-muted">Products</span></span>
-                <span className="col-span-2 text-[0.62rem] font-bold tracking-[0.12em] text-reenz-muted">CATALOG</span>
+            <div className="admin-metrics admin-metrics--overview">
+              <div className="admin-metric">
+                <span className="admin-metric-icon admin-metric-icon--forest"><Package aria-hidden="true" /></span>
+                <span className="admin-metric-copy"><strong>{dataReady ? products.length : "—"}</strong><span>Products</span></span>
+                <span className="admin-metric-caption">CATALOG</span>
               </div>
-              <div className="grid grid-cols-[auto_1fr] items-center gap-3 rounded-xl border border-reenz-border bg-reenz-paper p-4">
-                <span className="grid size-11 place-items-center rounded-xl bg-reenz-leaf text-white"><CheckCircle2 aria-hidden="true" /></span>
-                <span className="grid gap-0.5"><strong className="text-2xl text-reenz-forest">{dataReady ? publishedCount : "—"}</strong><span className="text-xs text-reenz-muted">Published</span></span>
-                <span className="col-span-2 text-[0.62rem] font-bold tracking-[0.12em] text-reenz-muted">LIVE</span>
+              <div className="admin-metric">
+                <span className="admin-metric-icon admin-metric-icon--leaf"><CheckCircle2 aria-hidden="true" /></span>
+                <span className="admin-metric-copy"><strong>{dataReady ? publishedCount : "—"}</strong><span>Published</span></span>
+                <span className="admin-metric-caption">LIVE</span>
               </div>
-              <div className="grid grid-cols-[auto_1fr] items-center gap-3 rounded-xl border border-reenz-border bg-reenz-paper p-4">
-                <span className="grid size-11 place-items-center rounded-xl bg-reenz-gold text-reenz-forest"><ShoppingBag aria-hidden="true" /></span>
-                <span className="grid gap-0.5"><strong className="text-2xl text-reenz-forest">{dataReady ? orders.length : "—"}</strong><span className="text-xs text-reenz-muted">Orders</span></span>
-                <span className="col-span-2 text-[0.62rem] font-bold tracking-[0.12em] text-reenz-muted">ALL TIME</span>
+              <div className="admin-metric">
+                <span className="admin-metric-icon admin-metric-icon--gold"><ShoppingBag aria-hidden="true" /></span>
+                <span className="admin-metric-copy"><strong>{dataReady ? orders.length : "—"}</strong><span>Orders</span></span>
+                <span className="admin-metric-caption">ALL TIME</span>
               </div>
-              <div className="grid grid-cols-[auto_1fr] items-center gap-3 rounded-xl border border-reenz-border bg-reenz-paper p-4">
-                <span className="grid size-11 place-items-center rounded-xl bg-reenz-green text-white"><Clock3 aria-hidden="true" /></span>
-                <span className="grid gap-0.5"><strong className="text-2xl text-reenz-forest">{dataReady ? pendingOrderCount : "—"}</strong><span className="text-xs text-reenz-muted">Pending orders</span></span>
-                <span className="col-span-2 text-[0.62rem] font-bold tracking-[0.12em] text-reenz-muted">FOLLOW UP</span>
+              <div className="admin-metric">
+                <span className="admin-metric-icon admin-metric-icon--forest"><Clock3 aria-hidden="true" /></span>
+                <span className="admin-metric-copy"><strong>{dataReady ? pendingOrderCount : "—"}</strong><span>Pending orders</span></span>
+                <span className="admin-metric-caption">FOLLOW UP</span>
               </div>
             </div>
 
-            <div className="grid gap-5 lg:grid-cols-2">
-              <Card className="overflow-hidden rounded-xl border-reenz-border bg-reenz-paper">
+            <div className="admin-overview-grid">
+              <Card className="admin-overview-card">
                 <CardContent className="p-0">
-                  <div className="flex items-center justify-between border-b border-reenz-border px-5 py-4">
-                    <div><p className="mb-1 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-reenz-leaf">Latest activity</p><h2 className="font-heading text-xl text-reenz-forest">Recent orders</h2></div>
-                    <Link className="flex items-center gap-1 text-xs font-semibold text-reenz-green no-underline" href="/admin/orders">All orders <ArrowUpRight aria-hidden="true" /></Link>
+                  <div className="admin-overview-card-heading">
+                    <div><p className="admin-eyebrow">Latest activity</p><h2>Recent orders</h2></div>
+                    <Link href="/admin/orders">All orders <ArrowUpRight aria-hidden="true" /></Link>
                   </div>
                   {loading ? (
-                    <p className="p-5 text-sm text-reenz-muted">Loading orders…</p>
+                    <p className="admin-overview-empty">Loading orders…</p>
                   ) : !dataReady ? (
-                    <p className="p-5 text-sm text-reenz-muted">Order data is unavailable until the database connection is restored.</p>
+                    <p className="admin-overview-empty">Order data is unavailable until the database connection is restored.</p>
                   ) : orders.length ? (
-                    <ul className="grid list-none p-0">
+                    <ul className="admin-overview-list">
                       {orders.slice(0, 5).map((order) => (
                         <li key={order.id}>
                           <div className="admin-overview-order-copy">
@@ -918,11 +918,11 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
                 </CardContent>
               </Card>
 
-              <Card className="overflow-hidden rounded-xl border-reenz-border bg-reenz-paper">
+              <Card className="admin-overview-card">
                 <CardContent className="p-0">
-                  <div className="flex items-center justify-between border-b border-reenz-border px-5 py-4">
-                    <div><p className="mb-1 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-reenz-leaf">Catalog health</p><h2 className="font-heading text-xl text-reenz-forest">Recent products</h2></div>
-                    <Link className="flex items-center gap-1 text-xs font-semibold text-reenz-green no-underline" href="/admin/products">Manage products <ArrowUpRight aria-hidden="true" /></Link>
+                  <div className="admin-overview-card-heading">
+                    <div><p className="admin-eyebrow">Catalog health</p><h2>Recent products</h2></div>
+                    <Link href="/admin/products">Manage products <ArrowUpRight aria-hidden="true" /></Link>
                   </div>
                   {loading ? (
                     <p className="admin-overview-empty">Loading products…</p>
@@ -1014,7 +1014,7 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
                 </div>
               </div>
 
-              <Card className="admin-table-wrap">
+              <Card className="admin-table-wrap admin-products-table">
                 <CardContent className="p-0">
                   <Table>
                     <TableHeader>

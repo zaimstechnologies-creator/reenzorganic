@@ -12,6 +12,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   productCategories,
   productCategoryLabel,
   type Product,
@@ -74,7 +81,7 @@ function CatalogProductCard({
               <span className="absolute bottom-3 left-3 rounded-full bg-reenz-paper/95 px-3 py-1 text-xs font-semibold text-reenz-green shadow-sm">{productCategoryLabel(product.category)}</span>
             </span>
             <span className="flex flex-1 flex-col p-4">
-              <span className="line-clamp-2 min-h-[3.5rem] font-heading text-xl font-medium leading-snug text-reenz-forest" title={product.name}>
+              <span className="line-clamp-2 font-heading text-xl font-medium leading-snug text-reenz-forest" title={product.name}>
                 {title}
               </span>
               <span className="mt-2 line-clamp-2 min-h-11 text-sm leading-5 text-reenz-muted">
@@ -92,8 +99,8 @@ function CatalogProductCard({
       </article>
 
       <DialogContent className="w-[min(94vw,900px)] max-h-[90vh] overflow-y-auto rounded-3xl border border-reenz-border bg-reenz-paper p-5 text-reenz-ink shadow-2xl sm:max-w-3xl">
-        <div className="grid gap-6 sm:grid-cols-2 sm:items-center">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-reenz-sage">
+        <div className="grid gap-6 sm:grid-cols-2 sm:items-stretch">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-reenz-sage sm:h-full sm:min-h-72 sm:aspect-auto">
             {product.image ? (
               <Image src={product.image} alt={product.alt} fill sizes="(max-width: 640px) 90vw, 42vw" quality={90} className="size-full object-cover" />
             ) : (
@@ -110,21 +117,36 @@ function CatalogProductCard({
                 {product.description || "A thoughtful favorite for your pantry."}
               </DialogDescription>
             </DialogHeader>
-            <label className="mt-5 block text-sm font-semibold text-reenz-green" htmlFor={`catalog-variant-${product.id}`}>
+            <label className="mt-5 block text-sm font-semibold text-reenz-green" id={`catalog-variant-label-${product.id}`}>
               Choose an option
             </label>
-            <select
-              className="mt-2 min-h-12 w-full rounded-xl border border-reenz-border bg-reenz-paper px-3 text-sm text-reenz-ink outline-none focus:border-reenz-leaf focus:ring-2 focus:ring-reenz-leaf/20"
-              id={`catalog-variant-${product.id}`}
+            <Select
               value={selectedVariant.id}
-              onChange={(event) => setSelectedVariantId(event.currentTarget.value)}
+              onValueChange={setSelectedVariantId}
             >
-              {product.variants.map((variant) => (
-                <option key={variant.id} value={variant.id}>
-                  {variant.title || "Available option"} — {formatPrice(variant.priceCents)} PKR
-                </option>
-              ))}
-            </select>
+              <SelectTrigger
+                id={`catalog-variant-${product.id}`}
+                aria-labelledby={`catalog-variant-label-${product.id}`}
+                className="mt-2 min-h-12 w-full rounded-xl border-reenz-border bg-reenz-paper px-3 text-sm text-reenz-ink focus-visible:border-reenz-leaf focus-visible:ring-reenz-leaf/20 [&_svg]:text-reenz-leaf"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent
+                position="popper"
+                align="start"
+                className="max-h-60 rounded-xl border border-reenz-border bg-reenz-paper p-1 text-reenz-ink shadow-lg"
+              >
+                {product.variants.map((variant) => (
+                  <SelectItem
+                    key={variant.id}
+                    value={variant.id}
+                    className="rounded-lg py-2.5 focus:bg-reenz-sage focus:text-reenz-forest"
+                  >
+                    {variant.title || "Available option"} — {formatPrice(variant.priceCents)} PKR
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <p className="mt-4 flex items-center justify-between border-t border-reenz-border pt-3 text-sm text-reenz-muted">
               <span>Unit price</span>
               <strong className="font-semibold text-reenz-green">{formatPrice(selectedVariant.priceCents)} PKR</strong>
@@ -237,13 +259,13 @@ export function CatalogBrowser({
   return (
     <div className="rounded-3xl border border-reenz-border bg-reenz-paper p-4 shadow-sm sm:p-6">
       <div className="grid gap-6 lg:grid-cols-[minmax(220px,250px)_minmax(0,1fr)] lg:items-start">
-        <aside className="grid content-start gap-5 rounded-2xl bg-reenz-cream/70 p-4 lg:sticky lg:top-4" aria-label="Catalog filters">
+        <aside className="grid content-start gap-5 rounded-2xl border border-reenz-border/70 bg-reenz-cream/70 p-4 shadow-sm lg:sticky lg:top-4 lg:max-h-[calc(100svh-2rem)] lg:overflow-y-auto lg:pr-3" aria-label="Catalog filters">
           <div className="grid gap-1">
             <p className="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-reenz-leaf">Browse with ease</p>
             <h2 className="m-0 font-heading text-2xl leading-tight text-reenz-forest">Find your favorite</h2>
           </div>
 
-          <label className="flex min-h-12 min-w-0 items-center gap-3 rounded-xl border border-reenz-border bg-reenz-paper px-4 transition focus-within:border-reenz-leaf focus-within:ring-2 focus-within:ring-reenz-leaf/15">
+          <label className="catalog-search">
             <Search aria-hidden="true" size={19} />
             <span className="sr-only">Search products</span>
             <input
@@ -256,7 +278,7 @@ export function CatalogBrowser({
             />
             {query && (
               <button
-                className="grid size-8 shrink-0 cursor-pointer place-items-center rounded-full border-0 bg-transparent text-reenz-muted transition hover:bg-reenz-sage"
+                className="catalog-search-clear"
                 type="button"
                 aria-label="Clear search"
                 onClick={() => setQuery("")}
@@ -268,17 +290,17 @@ export function CatalogBrowser({
 
           <section className="grid gap-3" aria-labelledby="catalog-categories-heading">
             <h3 id="catalog-categories-heading" className="m-0 font-heading text-xl text-reenz-forest">Product categories</h3>
-            <nav className="m-0 grid grid-cols-2 gap-2 sm:grid-cols-2 lg:grid-cols-1" aria-label="Filter by product category">
+            <nav className="m-0 grid grid-cols-2 gap-2 sm:grid-cols-2 lg:grid-cols-2 lg:gap-1.5" aria-label="Filter by product category">
               {categories.map((item) => (
                 <button
-                  className={`flex min-h-12 cursor-pointer items-center justify-between gap-2 rounded-xl border px-3 py-2 text-left text-sm transition ${category === item.value ? "border-reenz-forest bg-reenz-forest text-reenz-paper" : "border-reenz-border bg-reenz-paper text-reenz-green hover:border-reenz-leaf hover:bg-reenz-sage"}`}
+                  className={`flex min-h-12 min-w-0 cursor-pointer items-center justify-between gap-2 rounded-xl border px-3 py-2 text-left text-sm transition lg:gap-1 lg:px-1.5 lg:text-[0.68rem] ${category === item.value ? "border-reenz-forest bg-reenz-forest text-reenz-paper" : "border-reenz-border bg-reenz-paper text-reenz-green hover:border-reenz-leaf hover:bg-reenz-sage"}`}
                   key={item.value}
                   type="button"
                   aria-pressed={category === item.value}
                   onClick={() => setCategory(item.value)}
                 >
-                  <span className="font-semibold">{item.label}</span>
-                  <span className={`grid size-6 shrink-0 place-items-center rounded-full text-xs font-bold ${category === item.value ? "bg-reenz-paper/15 text-reenz-paper" : "bg-reenz-sage text-reenz-green"}`}>{item.count}</span>
+                  <span className="min-w-0 truncate whitespace-nowrap font-semibold">{item.label}</span>
+                  <span className={`grid size-6 shrink-0 place-items-center rounded-full text-xs font-bold lg:size-5 lg:text-[0.6rem] ${category === item.value ? "bg-reenz-paper/15 text-reenz-paper" : "bg-reenz-sage text-reenz-green"}`}>{item.count}</span>
                 </button>
               ))}
             </nav>
@@ -287,10 +309,10 @@ export function CatalogBrowser({
           <section className="grid gap-3" aria-labelledby="catalog-featured-heading">
             <h3 id="catalog-featured-heading" className="m-0 font-heading text-xl text-reenz-forest">Featured products</h3>
             {featuredProducts.length > 0 ? (
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-1">
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-1 lg:gap-1.5">
                 {featuredProducts.map((product) => (
                   <button
-                    className="flex min-w-0 cursor-pointer items-center gap-3 rounded-xl border border-reenz-border bg-reenz-paper p-2 text-left transition hover:border-reenz-leaf hover:bg-white"
+                    className="flex min-h-14 min-w-0 cursor-pointer items-center gap-2 rounded-xl border border-reenz-border bg-reenz-paper p-1.5 text-left transition hover:border-reenz-leaf hover:bg-white"
                     key={product.id}
                     type="button"
                     onClick={() => {
@@ -305,14 +327,14 @@ export function CatalogBrowser({
                         width={56}
                         height={56}
                         sizes="56px"
-                        className="size-14 shrink-0 rounded-lg object-cover"
+                        className="size-11 shrink-0 rounded-lg object-cover"
                       />
                     ) : (
-                      <span className="size-14 shrink-0 rounded-lg bg-reenz-sage" aria-hidden="true" />
+                      <span className="size-11 shrink-0 rounded-lg bg-reenz-sage" aria-hidden="true" />
                     )}
                     <span className="grid min-w-0 flex-1 gap-1">
-                      <strong className="line-clamp-1 text-sm font-semibold text-reenz-forest">{product.name.replace(/^(?:REENZ\s+|Imperial\s+)/i, "")}</strong>
-                      <span className="text-xs text-reenz-muted">{formatPriceRange(product)}</span>
+                      <strong className="line-clamp-1 text-xs font-semibold text-reenz-forest">{product.name.replace(/^(?:REENZ\s+|Imperial\s+)/i, "")}</strong>
+                      <span className="text-[0.68rem] text-reenz-muted">{formatPriceRange(product)}</span>
                     </span>
                     <ArrowRight aria-hidden="true" size={16} />
                   </button>
@@ -354,7 +376,7 @@ export function CatalogBrowser({
 
           <section className="pt-4" aria-labelledby="catalog-products-heading">
             {visibleProducts.length > 0 ? (
-              <div className="w-full px-1 pb-3" role="region" aria-label="Product results" tabIndex={0}>
+              <div className="catalog-results-scroll w-full px-1 pb-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-reenz-gold lg:h-[min(35rem,calc(100svh-14rem))] lg:min-h-[28rem] lg:overflow-y-scroll lg:overscroll-contain lg:pr-3" role="region" aria-label="Product results" tabIndex={0}>
                 <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 xl:grid-cols-3">
                   {visibleProducts.map((product) => (
                     <CatalogProductCard key={product.id} product={product} onAddToCart={addToCart} />
