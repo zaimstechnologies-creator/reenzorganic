@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     localPatterns: [{ pathname: "/api/products/**", search: "" }],
+    qualities: [75, 90],
   },
   /* config options here */
   experimental: {

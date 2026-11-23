@@ -42,16 +42,16 @@ export function AdminLoginForm() {
   }
 
   return (
-    <Card className="admin-login-card">
+    <Card className="rounded-3xl border-reenz-border bg-reenz-paper p-1 shadow-[0_24px_60px_rgb(38_55_42/12%)]">
       <CardHeader>
-        <p className="admin-eyebrow">Reenz Organic</p>
+        <p className="mb-2 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-reenz-leaf">Reenz Organic</p>
         <CardTitle className="text-2xl">Administrator sign in</CardTitle>
         <CardDescription>Use your configured administrator credentials to continue.</CardDescription>
       </CardHeader>
       <CardContent>
-        <form className="admin-form" onSubmit={submit}>
-          <div className="admin-form-field">
-            <Label htmlFor="admin-email">Email</Label>
+        <form className="grid gap-4" onSubmit={submit}>
+          <div className="grid gap-2">
+            <Label className="text-sm font-semibold text-reenz-green" htmlFor="admin-email">Email</Label>
             <Input
               id="admin-email"
               name="email"
@@ -61,8 +61,8 @@ export function AdminLoginForm() {
               maxLength={254}
             />
           </div>
-          <div className="admin-form-field">
-            <Label htmlFor="admin-password">Password</Label>
+          <div className="grid gap-2">
+            <Label className="text-sm font-semibold text-reenz-green" htmlFor="admin-password">Password</Label>
             <Input
               id="admin-password"
               name="password"
@@ -73,7 +73,7 @@ export function AdminLoginForm() {
             />
           </div>
           {error && (
-            <p className="admin-alert" role="alert">
+            <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
               {error}
             </p>
           )}

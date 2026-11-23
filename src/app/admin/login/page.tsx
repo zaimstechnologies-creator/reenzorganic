@@ -7,9 +7,9 @@ export const metadata = { title: "Admin sign in | Reenz Organic" };
 
 export default function AdminLoginPage() {
   return (
-    <main className="admin-login-layout">
-      <section className="admin-login-brand-panel">
-        <Link className="admin-login-brand" href="/">
+    <main className="grid min-h-screen grid-cols-1 bg-reenz-cream lg:grid-cols-[minmax(320px,42%)_minmax(0,58%)]">
+      <section className="relative hidden min-h-screen flex-col justify-between overflow-hidden bg-[#26372a] px-[clamp(2rem,5vw,5.5rem)] py-10 text-reenz-paper lg:flex">
+        <Link className="flex w-fit items-center text-reenz-paper no-underline" href="/">
           <Image
             src={resolveStoreImage("/assets/images/logo.png")}
             alt="Reenz Organic"
@@ -18,25 +18,25 @@ export default function AdminLoginPage() {
             priority
           />
         </Link>
-        <div className="admin-login-brand-copy">
-          <p>THE REENZ ORGANIC WORKSPACE</p>
-          <h1>
+        <div className="max-w-md">
+          <p className="mb-5 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-reenz-gold">THE REENZ ORGANIC WORKSPACE</p>
+          <h1 className="font-heading text-[clamp(2.8rem,4vw,4.8rem)] leading-[1.02] font-medium [&_em]:text-reenz-gold [&_em]:not-italic">
             Thoughtful goods.
             <br />
             <em>Thoughtfully managed.</em>
           </h1>
-          <span>Keep your catalog fresh and your store running smoothly.</span>
+          <span className="mt-6 block text-sm leading-6 text-reenz-paper/75">Keep your catalog fresh and your store running smoothly.</span>
         </div>
-        <small className="admin-login-copyright">© Reenz Organic. Crafted with care.</small>
+        <small className="text-xs text-reenz-paper/55">© Reenz Organic. Crafted with care.</small>
       </section>
-      <section className="admin-login-workspace">
-        <header className="admin-login-topbar">
+      <section className="min-h-screen bg-reenz-cream">
+        <header className="flex h-20 items-center justify-between border-b border-reenz-border px-5 md:px-10">
           <span>Store management</span>
-          <Link href="/">Return to storefront <span aria-hidden="true">↗</span></Link>
+          <Link className="text-sm font-semibold text-reenz-green no-underline" href="/">Return to storefront <span aria-hidden="true">↗</span></Link>
         </header>
-        <div className="admin-login-content">
+        <div className="mx-auto grid min-h-[calc(100%-5rem)] max-w-[520px] content-center gap-5 px-5 py-10">
           <AdminLoginForm />
-          <p className="admin-login-security">SECURE ADMIN AREA <span /> PRIVATE ACCESS ONLY</p>
+          <p className="flex items-center justify-center gap-2 text-center text-[0.65rem] font-bold uppercase tracking-[0.12em] text-reenz-muted">SECURE ADMIN AREA <span className="size-1 rounded-full bg-reenz-leaf" /> PRIVATE ACCESS ONLY</p>
         </div>
       </section>
     </main>
