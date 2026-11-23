@@ -477,6 +477,7 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
   const [deletingProduct, setDeletingProduct] = useState<Product | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [orderRefreshError, setOrderRefreshError] = useState("");
   const [success, setSuccess] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [productSearch, setProductSearch] = useState("");
@@ -518,6 +519,17 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
     }
   }, [loadOrders, loadProducts, section]);
 
+  const refreshOrders = useCallback(async () => {
+    try {
+      await loadOrders();
+      setOrderRefreshError("");
+    } catch (cause) {
+      setOrderRefreshError(
+        cause instanceof Error ? cause.message : "Orders could not be refreshed.",
+      );
+    }
+  }, [loadOrders]);
+
   useEffect(() => {
     let active = true;
     fetch("/api/admin/session", { cache: "no-store" })
@@ -549,6 +561,35 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
       active = false;
     };
   }, [loadSectionData, router]);
+
+  useEffect(() => {
+    if (!dataReady || section === "products") return;
+
+    let active = true;
+    let refreshing = false;
+    const refresh = async () => {
+      if (!active || refreshing) return;
+      refreshing = true;
+      try {
+        await refreshOrders();
+      } finally {
+        refreshing = false;
+      }
+    };
+    const refreshWhenVisible = () => {
+      if (document.visibilityState === "visible") void refresh();
+    };
+    const interval = window.setInterval(() => void refresh(), 30_000);
+
+    window.addEventListener("focus", refreshWhenVisible);
+    document.addEventListener("visibilitychange", refreshWhenVisible);
+    return () => {
+      active = false;
+      window.clearInterval(interval);
+      window.removeEventListener("focus", refreshWhenVisible);
+      document.removeEventListener("visibilitychange", refreshWhenVisible);
+    };
+  }, [dataReady, refreshOrders, section]);
 
   const visibleProducts = useMemo(
     () =>
@@ -850,6 +891,14 @@ export function AdminDashboard({ section }: { section: AdminSection }) {
             <span>{error}</span>
             <Button variant="outline" size="sm" onClick={() => void retryLoading()} disabled={loading}>
               {loading ? "Retrying…" : "Try again"}
+            </Button>
+          </div>
+        )}
+        {orderRefreshError && (
+          <div className="admin-alert mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+            <span>{orderRefreshError}</span>
+            <Button variant="outline" size="sm" onClick={() => void refreshOrders()}>
+              Retry order refresh
             </Button>
           </div>
         )}

@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { addCartLine } from "@/lib/cart";
 import {
   productCategories,
   productCategoryLabel,
@@ -25,6 +26,7 @@ import {
   type ProductCategory,
   type ProductVariant,
 } from "@/lib/products";
+import { useCartState } from "@/components/use-cart-state";
 
 type CatalogCategory = ProductCategory | "all";
 
@@ -206,17 +208,17 @@ export function CatalogBrowser({
 }) {
   const [category, setCategory] = useState<CatalogCategory>(initialCategory);
   const [query, setQuery] = useState("");
-  const [cartQuantities, setCartQuantities] = useState<Record<string, number>>({});
   const [cartStatus, setCartStatus] = useState("");
-  const cartCount = Object.values(cartQuantities).reduce((total, quantity) => total + quantity, 0);
+  const { lines: cartLines } = useCartState();
+  const cartCount = cartLines.reduce((total, line) => total + line.quantity, 0);
 
   function addToCart(product: Product, variant: ProductVariant, quantity: number) {
-    setCartQuantities((current) => ({
-      ...current,
-      [`${product.id}:${variant.id}`]: (current[`${product.id}:${variant.id}`] ?? 0) + quantity,
-    }));
-    window.dispatchEvent(new CustomEvent("reenz:cart-add", { detail: quantity }));
-    setCartStatus(`${product.name} added to cart.`);
+    try {
+      addCartLine(product.id, variant.id, quantity);
+      setCartStatus(`${product.name} added to your cart.`);
+    } catch (cause) {
+      setCartStatus(cause instanceof Error ? cause.message : "The item could not be added.");
+    }
   }
 
   const categories = [

@@ -44,7 +44,6 @@ export function AdminLoginForm() {
   return (
     <Card className="rounded-3xl border-reenz-border bg-reenz-paper p-1 shadow-[0_24px_60px_rgb(38_55_42/12%)]">
       <CardHeader>
-        <p className="mb-2 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-reenz-leaf">Reenz Organic</p>
         <CardTitle className="text-2xl">Administrator sign in</CardTitle>
         <CardDescription>Use your configured administrator credentials to continue.</CardDescription>
       </CardHeader>
@@ -77,7 +76,11 @@ export function AdminLoginForm() {
               {error}
             </p>
           )}
-          <Button type="submit" className="w-full" disabled={pending}>
+          <Button
+            type="submit"
+            className="w-full bg-reenz-green text-white hover:bg-reenz-forest focus-visible:ring-reenz-leaf"
+            disabled={pending}
+          >
             {pending ? "Signing in…" : "Sign in"}
           </Button>
           <Link className="admin-muted text-center no-underline hover:underline" href="/">

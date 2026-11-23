@@ -5,7 +5,7 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 type StoreNavigationProps = {
-  currentPage: "home" | "catalog" | "contact";
+  currentPage: "home" | "catalog" | "contact" | "cart" | "checkout";
 };
 
 export function StoreNavigation({ currentPage }: StoreNavigationProps) {

@@ -29,14 +29,14 @@ export default function AdminLoginPage() {
         </div>
         <small className="text-xs text-reenz-paper/55">© Reenz Organic. Crafted with care.</small>
       </section>
-      <section className="min-h-screen bg-reenz-cream">
-        <header className="flex h-20 items-center justify-between border-b border-reenz-border px-5 md:px-10">
+      <section className="flex min-h-screen min-w-0 flex-col bg-reenz-cream">
+        <header className="flex h-20 shrink-0 items-center justify-between border-b border-reenz-border px-5 md:px-10">
           <span>Store management</span>
           <Link className="text-sm font-semibold text-reenz-green no-underline" href="/">Return to storefront <span aria-hidden="true">↗</span></Link>
         </header>
-        <div className="mx-auto grid min-h-[calc(100%-5rem)] max-w-[520px] content-center gap-5 px-5 py-10">
+        <div className="mx-auto flex w-full max-w-[520px] flex-1 flex-col justify-center gap-5 px-5 py-10">
           <AdminLoginForm />
-          <p className="flex items-center justify-center gap-2 text-center text-[0.65rem] font-bold uppercase tracking-[0.12em] text-reenz-muted">SECURE ADMIN AREA <span className="size-1 rounded-full bg-reenz-leaf" /> PRIVATE ACCESS ONLY</p>
+          <p className="flex flex-wrap items-center justify-center gap-2 text-center text-[0.65rem] font-bold uppercase tracking-[0.12em] text-reenz-muted">SECURE ADMIN AREA <span className="size-1 rounded-full bg-reenz-leaf" /> PRIVATE ACCESS ONLY</p>
         </div>
       </section>
     </main>
