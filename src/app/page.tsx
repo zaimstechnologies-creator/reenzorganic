@@ -35,57 +35,57 @@ export default async function Home() {
           <div className="home-hero__glow pointer-events-none absolute inset-0" aria-hidden="true" />
           <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
             <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-14">
-              <div className="z-10 space-y-7 lg:col-span-7">
-                <p className="inline-flex items-center gap-2 rounded-full border border-reenz-leaf/30 bg-reenz-paper/8 px-3.5 py-1.5 text-xs font-medium uppercase tracking-widest text-reenz-sage backdrop-blur-md">
+              <div className="z-10 space-y-7 text-center lg:col-span-7 lg:text-left">
+                <p className="mx-auto inline-flex items-center gap-2 rounded-full border border-reenz-leaf/30 bg-reenz-paper/8 px-3.5 py-1.5 text-xs font-medium uppercase tracking-widest text-reenz-sage backdrop-blur-md lg:mx-0">
                   <span className="size-1.5 animate-pulse rounded-full bg-reenz-gold" aria-hidden="true" />
                   Artisanal &amp; Sustainable Estate
                 </p>
                 <h1
                   id="hero-heading"
-                  className="font-heading text-5xl font-medium leading-[1.08] tracking-tight text-reenz-paper sm:text-6xl lg:text-7xl"
+                  className="font-heading text-4xl font-medium leading-[1.08] tracking-tight text-reenz-paper sm:text-5xl lg:text-7xl"
                 >
                   100% Organic,
                   <br />
                   Purely <em className="font-normal text-reenz-gold">Original.</em>
                 </h1>
-                <p className="max-w-xl text-base font-light leading-relaxed text-reenz-sage/80 sm:text-lg">
+                <p className="mx-auto max-w-xl text-base font-light leading-relaxed text-reenz-sage/80 sm:text-lg lg:mx-0">
                   Experience the essence of nature with our curated collection of farm-fresh
                   harvests and traditional botanical elixirs.
                 </p>
-                <div className="flex flex-wrap items-center gap-4 pt-2">
+                <div className="flex flex-wrap items-center justify-center gap-4 pt-2 lg:justify-start">
                   <Link
                     className="inline-flex items-center gap-2 rounded-full bg-reenz-paper px-7 py-3.5 text-sm font-semibold text-reenz-forest no-underline shadow-[0_20px_40px_-15px_rgba(21,32,24,0.12)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-reenz-cream hover:shadow-[0_0_25px_rgba(212,163,89,0.25)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-reenz-gold"
-                    href="#pantry-favorites"
+                    href="/catalog"
                   >
                     <span>Explore the collection</span>
                     <ArrowRight aria-hidden="true" className="text-reenz-green" size={16} />
                   </Link>
                   <Link
                     className="inline-flex items-center rounded-full border border-reenz-sage/25 px-6 py-3.5 text-sm font-medium text-reenz-sage no-underline transition-all duration-200 hover:border-reenz-sage/60 hover:bg-white/5 hover:text-reenz-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-reenz-gold"
-                    href="#features"
+                    href="/catalog"
                   >
                     Find your favorites
                   </Link>
                 </div>
-                <div className="grid max-w-lg grid-cols-3 gap-4 border-t border-reenz-sage/10 pt-8">
-                  <div>
-                    <p className="m-0 font-heading text-2xl font-semibold text-reenz-gold sm:text-3xl">
+                <div className="mx-auto grid w-full max-w-lg grid-cols-1 gap-4 border-t border-reenz-sage/10 pt-8 text-center sm:grid-cols-3 lg:mx-0 lg:max-w-none lg:text-left">
+                  <div className="min-w-0">
+                    <p className="m-0 font-heading text-xl font-semibold text-reenz-gold sm:text-2xl xl:text-3xl">
                       Farm-fresh
                     </p>
                     <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-widest text-reenz-sage/60">
                       Harvests
                     </p>
                   </div>
-                  <div className="border-l border-reenz-sage/10 pl-5">
-                    <p className="m-0 font-heading text-2xl font-semibold text-reenz-gold sm:text-3xl">
+                  <div className="min-w-0 border-t border-reenz-sage/10 pt-4 sm:border-l sm:border-t-0 sm:pt-0 sm:pl-3 lg:pl-5">
+                    <p className="m-0 font-heading text-xl font-semibold text-reenz-gold sm:text-2xl xl:text-3xl">
                       Thoughtful
                     </p>
                     <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-widest text-reenz-sage/60">
                       Favorites
                     </p>
                   </div>
-                  <div className="border-l border-reenz-sage/10 pl-5">
-                    <p className="m-0 font-heading text-2xl font-semibold text-reenz-gold sm:text-3xl">
+                  <div className="min-w-0 border-t border-reenz-sage/10 pt-4 sm:border-l sm:border-t-0 sm:pt-0 sm:pl-3 lg:pl-5">
+                    <p className="m-0 font-heading text-xl font-semibold text-reenz-gold sm:text-2xl xl:text-3xl">
                       Botanical
                     </p>
                     <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-widest text-reenz-sage/60">
@@ -178,13 +178,6 @@ export default async function Home() {
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-6 text-xs font-semibold tracking-wide sm:text-sm">
-                <Link
-                  className="flex items-center gap-1.5 text-reenz-forest/80 no-underline transition-colors hover:text-reenz-leaf"
-                  href="/catalog?category=desi-items"
-                >
-                  <span>Desi Ghee &amp; Organic Honey</span>
-                  <ArrowRight aria-hidden="true" size={14} />
-                </Link>
                 <Link
                   className="flex items-center gap-1.5 border-b border-reenz-leaf/40 pb-0.5 text-reenz-leaf no-underline transition-colors hover:text-[#233F2E]"
                   href="/catalog"
@@ -283,7 +276,7 @@ export default async function Home() {
                 <div className="pt-2">
                   <Link
                     className="inline-flex items-center gap-2.5 rounded-full bg-reenz-green px-8 py-3.5 text-sm font-medium text-reenz-paper no-underline shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-reenz-forest hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-reenz-gold"
-                    href="#pantry-favorites"
+                    href="/catalog"
                   >
                     <span>Shop pantry favorites</span>
                     <ArrowRight aria-hidden="true" className="text-reenz-gold" size={16} />
