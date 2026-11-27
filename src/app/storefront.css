@@ -1578,5 +1578,54 @@
     }
   }
 }
+
+@layer components {
+  .home-hero__glow {
+    background:
+      radial-gradient(ellipse at 68% 28%, rgb(107 131 87 / 18%), transparent 48%),
+      radial-gradient(ellipse at 12% 92%, rgb(35 63 46 / 42%), transparent 50%);
+  }
+
+  .home-hero__glow::before {
+    position: absolute;
+    inset: -35%;
+    background: radial-gradient(ellipse at center, rgb(107 131 87 / 14%), transparent 55%);
+    content: "";
+    animation: home-hero-glow-drift 20s ease-in-out infinite alternate;
+  }
+
+  .home-hero__photo,
+  .home-story__photo {
+    transition: transform 900ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .home-hero__photo:hover,
+  .home-story__photo:hover {
+    transform: scale(1.035);
+  }
+
+  @keyframes home-hero-glow-drift {
+    from {
+      transform: translate3d(-2%, 1%, 0) scale(0.96);
+      opacity: 0.6;
+    }
+
+    to {
+      transform: translate3d(2%, -1%, 0) scale(1.06);
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-hero__glow::before {
+      animation: none;
+    }
+
+    .home-hero__photo,
+    .home-story__photo {
+      transition: none;
+    }
+  }
+}
 @reference "./globals.css";
 

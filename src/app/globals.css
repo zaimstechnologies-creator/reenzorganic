@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500;1,6..96,600&family=DM+Sans:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -8,20 +7,20 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "DM Sans", "Avenir Next", Avenir, Arial, sans-serif;
+  --font-sans: var(--font-jakarta), "Plus Jakarta Sans", "Avenir Next", Avenir, Arial, sans-serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
-  --font-heading: "Bodoni Moda", Georgia, serif;
-  --color-reenz-ink: #26372a;
-  --color-reenz-forest: #193325;
-  --color-reenz-green: #284635;
-  --color-reenz-leaf: #667b50;
-  --color-reenz-sage: #e8ecdf;
-  --color-reenz-cream: #f5f4ef;
+  --font-heading: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --color-reenz-ink: #1a251d;
+  --color-reenz-forest: #152018;
+  --color-reenz-green: #193325;
+  --color-reenz-leaf: #6b8357;
+  --color-reenz-sage: #e6ebdd;
+  --color-reenz-cream: #f6f5ee;
   --color-reenz-paper: #fffefa;
   --color-reenz-clay: #b96643;
-  --color-reenz-gold: #d9a85d;
+  --color-reenz-gold: #d4a359;
   --color-reenz-muted: #70766b;
-  --color-reenz-border: #e7e5dc;
+  --color-reenz-border: #eceae0;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

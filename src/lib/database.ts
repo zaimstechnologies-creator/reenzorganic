@@ -248,11 +248,8 @@ export async function getHomepageProducts(): Promise<Product[]> {
   const db = await getDatabase();
   const rows = await db
     .collection<ProductDocument>("products")
-    .find(
-      { published: true, homepageFeatured: true },
-      { projection: { imageData: 0 } },
-    )
-    .sort({ updatedAt: -1, name: 1 })
+    .find({ published: true }, { projection: { imageData: 0 } })
+    .sort({ homepageFeatured: -1, updatedAt: -1, name: 1 })
     .limit(4)
     .toArray();
   return rows.map(readProduct);

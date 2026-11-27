@@ -1,15 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import { connection } from "next/server";
 import {
   ArrowRight,
+  Check,
+  CheckCircle2,
   CircleDollarSign,
+  Clock,
+  FlaskConical,
+  Globe,
   Heart,
-  Leaf,
+  RefreshCw,
   RotateCcw,
-  Sparkles,
+  Sun,
   Truck,
 } from "lucide-react";
+import { connection } from "next/server";
 import { ProductGrid, StorefrontShell } from "@/components/storefront";
 import { getHomepageProducts } from "@/lib/database";
 import { resolveStoreImage } from "@/lib/store-images";
@@ -23,233 +28,303 @@ export default async function Home() {
   return (
     <StorefrontShell currentPage="home">
       <main>
-        <section className="relative isolate flex min-h-[calc(100svh-4rem)] w-full overflow-hidden md:min-h-[calc(100vh-4rem)]" aria-labelledby="hero-heading">
-          <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-            <div className="absolute inset-0 opacity-0 animate-[hero-background-cycle_18s_ease-in-out_infinite]">
-              <Image
-                src={resolveStoreImage("/assets/images/hero-fruit-platter.webp")}
-                alt=""
-                fill
-                sizes="100vw"
-                className="scale-105 object-cover"
-              />
-            </div>
-            <div className="absolute inset-0 opacity-0 animate-[hero-background-cycle_18s_ease-in-out_infinite_-6s]">
-              <Image
-                src={resolveStoreImage("/assets/images/hero-dried-fruits.webp")}
-                alt=""
-                fill
-                sizes="100vw"
-              />
-            </div>
-            <div className="absolute inset-0 opacity-0 animate-[hero-background-cycle_18s_ease-in-out_infinite_-12s]">
-              <Image
-                src={resolveStoreImage("/assets/images/hero-fruits-nuts.webp")}
-                alt=""
-                fill
-                sizes="100vw"
-              />
-            </div>
-            <div className="absolute inset-0 bg-[#1a251d]/68" />
-          </div>
-          <div className="relative z-10 mx-auto grid w-full max-w-7xl flex-1 content-center items-center gap-8 px-4 py-12 md:px-8 md:py-20 lg:grid-cols-2 lg:gap-12">
-            <div className="relative z-10">
-              <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-reenz-sage">Artisanal &amp; Sustainable Estate</p>
-              <h1 id="hero-heading" className="mb-5 font-heading text-5xl leading-[1.05] tracking-tight text-reenz-sage [&_em]:font-normal [&_em]:text-reenz-sage md:text-6xl">
-                100% Organic, Purely <em>Original.</em>
-              </h1>
-              <p className="max-w-xl text-base leading-7 text-reenz-sage/80">
-                Experience the essence of nature with our curated collection of farm-fresh harvests and traditional botanical elixirs.
-              </p>
-              <div className="mt-7 flex flex-wrap gap-3 md:flex-nowrap">
-                <Link className="inline-flex min-h-11 min-w-0 items-center justify-center gap-2 rounded-full bg-reenz-sage px-4 py-3 text-xs font-semibold text-reenz-forest no-underline shadow-sm transition hover:bg-reenz-leaf hover:text-reenz-sage md:px-5 md:text-sm" href="#featured">
-                  Explore the collection{" "}
-                  <ArrowRight className="text-lg leading-none" aria-hidden="true" size={18} />
-                </Link>
-                <Link className="inline-flex min-h-11 min-w-0 items-center justify-center gap-2 rounded-full border border-reenz-sage px-4 py-3 text-xs font-semibold text-reenz-sage no-underline shadow-none transition hover:bg-reenz-sage hover:text-reenz-forest md:px-5 md:text-sm" href="/catalog">
-                  Find your favorites
-                </Link>
+        <section
+          className="home-hero relative overflow-hidden border-b border-reenz-sage/10 bg-[#1a251d] pt-12 pb-16 text-reenz-paper lg:pt-20 lg:pb-24"
+          aria-labelledby="hero-heading"
+        >
+          <div className="home-hero__glow pointer-events-none absolute inset-0" aria-hidden="true" />
+          <div className="relative mx-auto max-w-7xl px-6 sm:px-8">
+            <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-14">
+              <div className="z-10 space-y-7 lg:col-span-7">
+                <p className="inline-flex items-center gap-2 rounded-full border border-reenz-leaf/30 bg-reenz-paper/8 px-3.5 py-1.5 text-xs font-medium uppercase tracking-widest text-reenz-sage backdrop-blur-md">
+                  <span className="size-1.5 animate-pulse rounded-full bg-reenz-gold" aria-hidden="true" />
+                  Artisanal &amp; Sustainable Estate
+                </p>
+                <h1
+                  id="hero-heading"
+                  className="font-heading text-5xl font-medium leading-[1.08] tracking-tight text-reenz-paper sm:text-6xl lg:text-7xl"
+                >
+                  100% Organic,
+                  <br />
+                  Purely <em className="font-normal text-reenz-gold">Original.</em>
+                </h1>
+                <p className="max-w-xl text-base font-light leading-relaxed text-reenz-sage/80 sm:text-lg">
+                  Experience the essence of nature with our curated collection of farm-fresh
+                  harvests and traditional botanical elixirs.
+                </p>
+                <div className="flex flex-wrap items-center gap-4 pt-2">
+                  <Link
+                    className="inline-flex items-center gap-2 rounded-full bg-reenz-paper px-7 py-3.5 text-sm font-semibold text-reenz-forest no-underline shadow-[0_20px_40px_-15px_rgba(21,32,24,0.12)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-reenz-cream hover:shadow-[0_0_25px_rgba(212,163,89,0.25)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-reenz-gold"
+                    href="#pantry-favorites"
+                  >
+                    <span>Explore the collection</span>
+                    <ArrowRight aria-hidden="true" className="text-reenz-green" size={16} />
+                  </Link>
+                  <Link
+                    className="inline-flex items-center rounded-full border border-reenz-sage/25 px-6 py-3.5 text-sm font-medium text-reenz-sage no-underline transition-all duration-200 hover:border-reenz-sage/60 hover:bg-white/5 hover:text-reenz-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-reenz-gold"
+                    href="#features"
+                  >
+                    Find your favorites
+                  </Link>
+                </div>
+                <div className="grid max-w-lg grid-cols-3 gap-4 border-t border-reenz-sage/10 pt-8">
+                  <div>
+                    <p className="m-0 font-heading text-2xl font-semibold text-reenz-gold sm:text-3xl">
+                      Farm-fresh
+                    </p>
+                    <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-widest text-reenz-sage/60">
+                      Harvests
+                    </p>
+                  </div>
+                  <div className="border-l border-reenz-sage/10 pl-5">
+                    <p className="m-0 font-heading text-2xl font-semibold text-reenz-gold sm:text-3xl">
+                      Thoughtful
+                    </p>
+                    <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-widest text-reenz-sage/60">
+                      Favorites
+                    </p>
+                  </div>
+                  <div className="border-l border-reenz-sage/10 pl-5">
+                    <p className="m-0 font-heading text-2xl font-semibold text-reenz-gold sm:text-3xl">
+                      Botanical
+                    </p>
+                    <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-widest text-reenz-sage/60">
+                      Elixirs
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative lg:col-span-5">
+                <div className="relative mx-auto max-w-md overflow-hidden rounded-[2rem] border border-reenz-sage/15 bg-gradient-to-b from-[#243528] to-[#162118] p-3 shadow-2xl lg:max-w-none">
+                  <div className="relative h-[430px] overflow-hidden rounded-[1.4rem] bg-reenz-green/40">
+                    <Image
+                      src={resolveStoreImage("/assets/images/home-screen-right-side-photo.jpg")}
+                      alt="Reenz Organic pantry favorites arranged together"
+                      fill
+                      sizes="(max-width: 1023px) 90vw, 40vw"
+                      className="home-hero__photo object-cover object-center"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-reenz-forest/90 via-reenz-forest/20 to-transparent" />
+                  </div>
+                  <div className="absolute left-6 top-6 z-20 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-[#1a251d]/80 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-reenz-sage shadow-sm backdrop-blur-md">
+                    <Check aria-hidden="true" className="text-reenz-gold" size={14} />
+                    <span>Picked for quality</span>
+                  </div>
+                  <div className="absolute right-6 top-6 z-20 flex size-8 items-center justify-center rounded-full border border-white/10 bg-[#1a251d]/80 text-reenz-gold backdrop-blur-md">
+                    <Sun aria-hidden="true" size={16} />
+                  </div>
+                  <Link
+                    className="group absolute bottom-6 left-6 right-6 z-20 flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-reenz-forest/85 p-4 text-reenz-paper no-underline backdrop-blur-md transition hover:border-reenz-gold/40"
+                    href="/catalog"
+                  >
+                    <span>
+                      <span className="mb-0.5 block text-[10px] font-semibold uppercase tracking-widest text-reenz-gold">
+                        A little more thoughtful
+                      </span>
+                      <span className="font-heading text-sm font-medium sm:text-base">
+                        Good food should feel good.
+                      </span>
+                    </span>
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-reenz-gold/40 bg-reenz-gold/20 text-reenz-gold transition group-hover:bg-reenz-gold group-hover:text-reenz-forest">
+                      <ArrowRight aria-hidden="true" size={16} />
+                    </span>
+                  </Link>
+                </div>
               </div>
             </div>
-            <div className="relative z-10 mx-auto w-full max-w-lg" aria-hidden="true">
-              <div className="relative aspect-square w-full">
-                <span className="absolute inset-x-0 top-0 block h-[78%] w-[78%] overflow-hidden rounded-[2rem] border-[3px] border-[#1a251d] shadow-xl">
-                  <Image
-                    src={resolveStoreImage("/assets/images/hero-fruit-platter.webp")}
-                    alt=""
-                    fill
-                    sizes="(max-width: 640px) 75vw, 36vw"
-                    preload
-                  />
-                </span>
-                <span className="absolute bottom-0 right-0 block h-[48%] w-[54%] overflow-hidden rounded-[2rem] border-[3px] border-[#1a251d] shadow-xl">
-                  <Image
-                    src={resolveStoreImage("/assets/images/hero-dried-fruits.webp")}
-                    alt=""
-                    fill
-                    sizes="(max-width: 640px) 48vw, 24vw"
-                    className="size-full object-cover"
-                  />
-                </span>
-                <span className="absolute right-0 top-4 block h-[32%] w-[34%] overflow-hidden rounded-[2rem] border-[3px] border-[#1a251d] shadow-xl">
-                  <Image
-                    src={resolveStoreImage("/assets/images/hero-fruits-nuts.webp")}
-                    alt=""
-                    fill
-                    sizes="(max-width: 640px) 32vw, 16vw"
-                    className="size-full object-cover"
-                  />
-                </span>
+
+            <div className="mt-16 grid grid-cols-2 gap-4 border-t border-reenz-sage/10 pt-8 md:grid-cols-4 lg:gap-6">
+              <div className="flex items-center gap-3 text-xs font-medium tracking-wide text-reenz-sage/90 sm:text-sm">
+                <CheckCircle2 aria-hidden="true" className="shrink-0 text-reenz-gold" size={20} strokeWidth={1.75} />
+                <span>Picked for quality</span>
+              </div>
+              <div className="flex items-center gap-3 text-xs font-medium tracking-wide text-reenz-sage/90 sm:text-sm">
+                <Heart aria-hidden="true" className="shrink-0 text-reenz-gold" size={20} strokeWidth={1.75} />
+                <span>Naturally delicious</span>
+              </div>
+              <div className="flex items-center gap-3 text-xs font-medium tracking-wide text-reenz-sage/90 sm:text-sm">
+                <Clock aria-hidden="true" className="shrink-0 text-reenz-gold" size={20} strokeWidth={1.75} />
+                <span>Goodness for every day</span>
+              </div>
+              <div className="flex items-center gap-3 text-xs font-medium tracking-wide text-reenz-sage/90 sm:text-sm">
+                <FlaskConical aria-hidden="true" className="shrink-0 text-reenz-gold" size={20} strokeWidth={1.75} />
+                <span>Traditional botanical elixirs</span>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="grid grid-cols-3 border-y border-reenz-sage/15 bg-[#1a251d] px-4 py-3 text-sm font-medium text-reenz-sage" aria-label="Our promise">
-          <div className="flex min-h-14 items-center justify-center gap-2 px-3 border-r border-reenz-sage/20">
-            <Leaf className="text-lg text-reenz-gold" aria-hidden="true" size={20} />
-            Picked for quality
-          </div>
-          <div className="flex min-h-14 items-center justify-center gap-2 px-3 border-r border-reenz-sage/20">
-            <Heart className="text-lg text-reenz-gold" aria-hidden="true" size={20} />
-            Naturally delicious
-          </div>
-          <div className="flex min-h-14 items-center justify-center gap-2 px-3">
-            <Sparkles className="text-lg text-reenz-gold" aria-hidden="true" size={20} />
-            Goodness for every day
-          </div>
-        </section>
-
-        <section className="bg-reenz-cream py-14 md:py-20" id="featured" aria-labelledby="products-heading">
-          <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
-            <div className="mb-7" data-reveal>
+        <section
+          className="scroll-mt-20 bg-reenz-cream py-20 lg:py-28"
+          id="pantry-favorites"
+          aria-labelledby="products-heading"
+        >
+          <div className="mx-auto max-w-7xl px-6 sm:px-8">
+            <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
               <div>
-                <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-reenz-leaf">Straight from our store</p>
-                <h2 id="products-heading" className="mb-2 font-heading text-3xl leading-tight text-reenz-forest">Shop Reenz Organic favorites</h2>
-                <p className="max-w-2xl text-sm leading-6 text-reenz-muted">Explore thoughtful favorites from across our pantry.</p>
+                <p className="mb-2 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-reenz-leaf">
+                  <span className="size-1.5 rounded-full bg-reenz-leaf" aria-hidden="true" />
+                  Straight from our store
+                </p>
+                <h2
+                  id="products-heading"
+                  className="font-heading text-3xl font-semibold tracking-tight text-reenz-forest sm:text-4xl lg:text-5xl"
+                >
+                  Shop Reenz Organic favorites
+                </h2>
+                <p className="mt-2 max-w-lg text-sm font-normal text-reenz-forest/70 sm:text-base">
+                  Explore thoughtful favorites from across our pantry.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-6 text-xs font-semibold tracking-wide sm:text-sm">
+                <Link
+                  className="flex items-center gap-1.5 text-reenz-forest/80 no-underline transition-colors hover:text-reenz-leaf"
+                  href="/catalog?category=desi-items"
+                >
+                  <span>Desi Ghee &amp; Organic Honey</span>
+                  <ArrowRight aria-hidden="true" size={14} />
+                </Link>
+                <Link
+                  className="flex items-center gap-1.5 border-b border-reenz-leaf/40 pb-0.5 text-reenz-leaf no-underline transition-colors hover:text-[#233F2E]"
+                  href="/catalog"
+                >
+                  <span>View the collection</span>
+                  <ArrowRight aria-hidden="true" size={14} />
+                </Link>
               </div>
             </div>
-            <Link className="group mb-8 flex flex-col gap-4 rounded-2xl bg-reenz-forest p-5 text-reenz-paper no-underline transition hover:bg-reenz-green focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-reenz-gold md:flex-row md:items-center md:justify-between md:px-7 md:py-6" href="/catalog?category=desi-items">
-              <span className="block">
-                <span className="mb-1 block text-xs font-bold uppercase tracking-[0.16em] text-reenz-gold">Desi Items</span>
-                <strong className="block font-heading text-2xl font-medium">Desi Ghee &amp; Organic Honey</strong>
-                <span className="mt-1 block text-sm text-reenz-paper/75">Explore our traditional ghee and honey favorites.</span>
-              </span>
-              <span className="inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-reenz-paper/25 bg-reenz-paper/10 px-5 py-3 text-sm font-semibold text-reenz-paper transition-colors group-hover:border-reenz-gold/70 group-hover:bg-reenz-paper/15 md:w-auto md:min-w-44">
-                Shop desi items <ArrowRight aria-hidden="true" size={16} />
-              </span>
-            </Link>
-            <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5" aria-label="Explore our pantry">
-              <Link className="relative block aspect-[4/3] overflow-hidden rounded-2xl bg-reenz-sage no-underline [&::after]:absolute [&::after]:inset-0 [&::after]:content-[''] [&::after]:bg-gradient-to-t [&::after]:from-reenz-forest/80 [&::after]:via-transparent [&::after]:to-transparent" href="/catalog?category=dry-fruits">
-                <Image
-                  src={resolveStoreImage("/assets/images/hero-fruit-platter.webp")}
-                  alt="A colorful assortment of dried fruit"
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="size-full object-cover transition duration-300"
-                />
-                <span className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-between p-4 font-semibold text-reenz-paper">
-                  <span>Dried fruit</span>
-                  <ArrowRight aria-hidden="true" size={16} />
-                </span>
-              </Link>
-              <Link className="relative block aspect-[4/3] overflow-hidden rounded-2xl bg-reenz-sage no-underline [&::after]:absolute [&::after]:inset-0 [&::after]:content-[''] [&::after]:bg-gradient-to-t [&::after]:from-reenz-forest/80 [&::after]:via-transparent [&::after]:to-transparent" href="/catalog?category=desi-items">
-                <Image
-                  src={resolveStoreImage("/assets/images/home-screen-right-side-photo.jpg")}
-                  alt="Desi ghee, honey, and dried fruit"
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="size-full object-cover transition duration-300"
-                />
-                <span className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-between p-4 font-semibold text-reenz-paper">
-                  <span>Pantry favorites</span>
-                  <ArrowRight aria-hidden="true" size={16} />
-                </span>
-              </Link>
-              <Link className="relative block aspect-[4/3] overflow-hidden rounded-2xl bg-reenz-sage no-underline [&::after]:absolute [&::after]:inset-0 [&::after]:content-[''] [&::after]:bg-gradient-to-t [&::after]:from-reenz-forest/80 [&::after]:via-transparent [&::after]:to-transparent" href="/catalog?category=nuts">
-                <Image
-                  src={resolveStoreImage("/assets/images/Almond.jpg")}
-                  alt="A close-up of whole almonds"
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="size-full object-cover transition duration-300"
-                />
-                <span className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-between p-4 font-semibold text-reenz-paper">
-                  <span>Nuts &amp; more</span>
-                  <ArrowRight aria-hidden="true" size={16} />
-                </span>
-              </Link>
-            </div>
-            {products.length === 0 && (
-              <p className="rounded-2xl border border-reenz-border bg-reenz-paper p-5 text-sm text-reenz-muted" role="status">
+
+            {products.length === 0 ? (
+              <p
+                className="rounded-2xl border border-reenz-border bg-reenz-paper p-5 text-sm text-reenz-muted"
+                role="status"
+              >
                 There are no available products right now. Please check back soon.
               </p>
+            ) : (
+              <ProductGrid products={products} />
             )}
-            <ProductGrid products={products} />
-            <div className="mt-8 flex justify-center" data-reveal>
-              <Link className="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-reenz-green px-5 py-3 text-sm font-semibold text-white no-underline shadow-sm transition hover:bg-reenz-forest focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-reenz-gold" href="/catalog">
-                View the collection{" "}
-                <ArrowRight className="text-lg leading-none" aria-hidden="true" size={18} />
-              </Link>
-            </div>
           </div>
         </section>
 
-        <section className="bg-reenz-paper py-14 md:py-20" aria-labelledby="story-heading">
-          <div className="mx-auto grid w-full max-w-7xl items-center gap-8 px-4 md:grid-cols-2 md:gap-12 md:px-8">
-            <div className="aspect-[4/3] overflow-hidden rounded-[2rem] bg-reenz-sage shadow-lg" data-reveal>
-              <Image
-                src={resolveStoreImage("/assets/images/home-screen-right-side-photo.jpg")}
-                alt="Reenz Organic desi ghee and honey alongside a colorful selection of dried fruit"
-                width={960}
-                height={960}
-                sizes="(max-width: 760px) 100vw, 45vw"
-                className="size-full object-cover"
-              />
-            </div>
-            <div data-reveal>
-              <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-reenz-leaf">A little more thoughtful</p>
-              <h2 id="story-heading" className="mb-4 font-heading text-4xl leading-tight text-reenz-forest">Good food should feel good.</h2>
-              <p className="leading-7 text-reenz-muted">
-                We believe the best pantry staples start with nature and end with a moment worth
-                savoring. Explore honest flavors, thoughtful picks, and simple ways to make the
-                everyday feel a little more special.
-              </p>
-              <div className="my-6 grid gap-4">
-                <div className="grid gap-1 border-l-2 border-reenz-gold pl-4">
-                  <strong className="text-sm text-reenz-green">From nature</strong>
-                  <span className="text-sm leading-6 text-reenz-muted">Ingredients inspired by the richness of the earth.</span>
-                </div>
-                <div className="grid gap-1 border-l-2 border-reenz-gold pl-4">
-                  <strong className="text-sm text-reenz-green">For every day</strong>
-                  <span className="text-sm leading-6 text-reenz-muted">Easy favorites for little rituals and big cravings.</span>
+        <section
+          className="relative scroll-mt-20 overflow-hidden border-y border-reenz-sage/20 bg-[#f0f4ea] py-20 lg:py-28"
+          aria-labelledby="story-heading"
+          id="features"
+        >
+          <div className="mx-auto max-w-7xl px-6 sm:px-8">
+            <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
+              <div className="relative lg:col-span-5">
+                <div className="relative h-[520px] overflow-hidden rounded-3xl border-2 border-white/60 bg-[#1a251d]/20 shadow-2xl">
+                  <Image
+                    src={resolveStoreImage("/assets/images/hero-fruit-platter.webp")}
+                    alt="A colorful selection of dried fruit ready to enjoy"
+                    fill
+                    sizes="(max-width: 1023px) 90vw, 42vw"
+                    className="home-story__photo object-cover object-center"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-reenz-forest/90 via-reenz-forest/30 to-transparent" />
+                  <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-white/10 bg-reenz-forest/90 p-6 text-reenz-paper shadow-[0_20px_40px_-15px_rgba(21,32,24,0.12)] backdrop-blur-md">
+                    <h3 className="mb-1.5 font-heading text-xl font-semibold leading-snug sm:text-2xl">
+                      Thoughtful favorites, inspired by nature.
+                    </h3>
+                    <p className="m-0 text-xs font-light text-reenz-sage/80 sm:text-sm">
+                      Experience the essence of nature in every pantry favorite.
+                    </p>
+                  </div>
                 </div>
               </div>
-              <Link className="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full bg-reenz-green px-5 py-3 text-sm font-semibold text-white no-underline shadow-sm transition hover:bg-reenz-forest focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-reenz-gold" href="/catalog">
-                Shop pantry favorites{" "}
-                <ArrowRight className="text-lg leading-none" aria-hidden="true" size={18} />
-              </Link>
+
+              <div className="space-y-7 lg:col-span-7">
+                <div>
+                  <p className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-reenz-leaf/15 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-reenz-leaf">
+                    <RefreshCw aria-hidden="true" size={14} />
+                    <span>A little more thoughtful</span>
+                  </p>
+                  <h2
+                    id="story-heading"
+                    className="font-heading text-4xl font-bold leading-tight tracking-tight text-reenz-forest sm:text-5xl lg:text-6xl"
+                  >
+                    Good food should feel good.
+                  </h2>
+                </div>
+                <p className="max-w-xl text-base font-light leading-relaxed text-reenz-forest/75 sm:text-lg">
+                  We believe the best pantry staples start with nature and end with a moment worth
+                  savoring. Explore honest flavors, thoughtful picks, and simple ways to make the
+                  everyday feel a little more special.
+                </p>
+                <div className="flex items-start gap-4 rounded-2xl border border-reenz-border bg-reenz-paper p-5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-transform duration-200 hover:translate-x-1">
+                  <span className="flex size-12 shrink-0 items-center justify-center rounded-xl border border-reenz-leaf/20 bg-reenz-cream text-reenz-leaf">
+                    <Globe aria-hidden="true" size={22} strokeWidth={1.75} />
+                  </span>
+                  <span>
+                    <strong className="block font-heading text-lg font-bold text-reenz-forest">
+                      From nature
+                    </strong>
+                    <span className="mt-0.5 block text-xs font-normal text-reenz-forest/70 sm:text-sm">
+                      Ingredients inspired by the richness of the earth.
+                    </span>
+                  </span>
+                </div>
+                <div className="flex items-start gap-4 rounded-2xl border border-reenz-border bg-reenz-paper p-5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-transform duration-200 hover:translate-x-1">
+                  <span className="flex size-12 shrink-0 items-center justify-center rounded-xl border border-reenz-gold/25 bg-reenz-cream text-reenz-gold">
+                    <Heart aria-hidden="true" size={22} strokeWidth={1.75} />
+                  </span>
+                  <span>
+                    <strong className="block font-heading text-lg font-bold text-reenz-forest">
+                      For every day
+                    </strong>
+                    <span className="mt-0.5 block text-xs font-normal text-reenz-forest/70 sm:text-sm">
+                      Easy favorites for little rituals and big cravings.
+                    </span>
+                  </span>
+                </div>
+                <div className="pt-2">
+                  <Link
+                    className="inline-flex items-center gap-2.5 rounded-full bg-reenz-green px-8 py-3.5 text-sm font-medium text-reenz-paper no-underline shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-reenz-forest hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-reenz-gold"
+                    href="#pantry-favorites"
+                  >
+                    <span>Shop pantry favorites</span>
+                    <ArrowRight aria-hidden="true" className="text-reenz-gold" size={16} />
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="bg-reenz-sage px-4 py-10" aria-label="Delivery, returns, and refunds" data-reveal>
-          <div className="mx-auto grid max-w-7xl gap-4 md:grid-cols-3">
-            <article className="rounded-2xl bg-reenz-paper p-5 text-center shadow-sm">
-              <Truck className="mx-auto mb-3 size-8 text-reenz-leaf" aria-hidden="true" size={32} />
-              <h2 className="mb-1 font-heading text-xl font-medium text-reenz-forest">Free Delivery</h2>
-              <p className="m-0 text-sm text-reenz-muted">Free and fast delivery in 24/7 hours</p>
-            </article>
-            <article className="rounded-2xl bg-reenz-paper p-5 text-center shadow-sm">
-              <RotateCcw className="mx-auto mb-3 size-8 text-reenz-leaf" aria-hidden="true" size={32} />
-              <h2 className="mb-1 font-heading text-xl font-medium text-reenz-forest">Returns</h2>
-              <p className="m-0 text-sm text-reenz-muted">Our returns policy last 7 days</p>
-            </article>
-            <article className="rounded-2xl bg-reenz-paper p-5 text-center shadow-sm">
-              <CircleDollarSign className="mx-auto mb-3 size-8 text-reenz-leaf" aria-hidden="true" size={32} />
-              <h2 className="mb-1 font-heading text-xl font-medium text-reenz-forest">Refunds</h2>
-              <p className="m-0 text-sm text-reenz-muted">Our refund policy last 7 days</p>
-            </article>
+        <section className="bg-reenz-cream py-16" aria-label="Delivery, returns, and refunds">
+          <div className="mx-auto max-w-7xl px-6 sm:px-8">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              <article className="flex flex-col items-center justify-center rounded-2xl border border-reenz-border bg-reenz-paper p-7 text-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all hover:-translate-y-1 hover:border-reenz-leaf/30">
+                <span className="mb-3.5 flex size-12 items-center justify-center rounded-full bg-reenz-cream text-reenz-green">
+                  <Truck aria-hidden="true" size={24} strokeWidth={1.75} />
+                </span>
+                <h2 className="m-0 font-heading text-xl font-bold text-reenz-forest">Free Delivery</h2>
+                <p className="mt-1 text-xs font-normal text-reenz-forest/65">
+                  Free and fast delivery in 24/7 hours
+                </p>
+              </article>
+              <article className="flex flex-col items-center justify-center rounded-2xl border border-reenz-border bg-reenz-paper p-7 text-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all hover:-translate-y-1 hover:border-reenz-leaf/30">
+                <span className="mb-3.5 flex size-12 items-center justify-center rounded-full bg-reenz-cream text-reenz-green">
+                  <RotateCcw aria-hidden="true" size={24} strokeWidth={1.75} />
+                </span>
+                <h2 className="m-0 font-heading text-xl font-bold text-reenz-forest">Returns</h2>
+                <p className="mt-1 text-xs font-normal text-reenz-forest/65">
+                  Our returns policy last 7 days
+                </p>
+              </article>
+              <article className="flex flex-col items-center justify-center rounded-2xl border border-reenz-border bg-reenz-paper p-7 text-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all hover:-translate-y-1 hover:border-reenz-leaf/30">
+                <span className="mb-3.5 flex size-12 items-center justify-center rounded-full bg-reenz-cream text-reenz-green">
+                  <CircleDollarSign aria-hidden="true" size={24} strokeWidth={1.75} />
+                </span>
+                <h2 className="m-0 font-heading text-xl font-bold text-reenz-forest">Refunds</h2>
+                <p className="mt-1 text-xs font-normal text-reenz-forest/65">
+                  Our refund policy last 7 days
+                </p>
+              </article>
+            </div>
           </div>
         </section>
       </main>

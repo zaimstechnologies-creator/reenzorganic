@@ -53,7 +53,7 @@ export function StoreNavigation({ currentPage }: StoreNavigationProps) {
         {isOpen ? <X aria-hidden="true" size={20} /> : <Menu aria-hidden="true" size={20} />}
       </button>
       <nav
-        className={`hidden items-center justify-self-center max-md:absolute max-md:inset-x-4 max-md:top-[calc(100%-0.25rem)] max-md:flex-col max-md:rounded-2xl max-md:bg-[#1a251d] max-md:p-3 ${isOpen ? "max-md:flex" : ""} md:flex`}
+        className={`hidden items-center md:justify-self-center max-md:absolute max-md:inset-x-4 max-md:top-[calc(100%-0.25rem)] max-md:flex-col max-md:justify-self-stretch max-md:rounded-2xl max-md:border max-md:border-white/10 max-md:bg-[#1a251d] max-md:p-3 max-md:shadow-xl md:flex md:rounded-full md:border md:border-[#354139] md:bg-[#212e24] md:px-1.5 md:py-1.5 md:shadow-inner ${isOpen ? "max-md:flex" : ""}`}
         id="primary-navigation"
         aria-label="Main navigation"
       >
@@ -63,7 +63,7 @@ export function StoreNavigation({ currentPage }: StoreNavigationProps) {
               href="/"
               aria-current={currentPage === "home" ? "page" : undefined}
               onClick={closeMenu}
-              className="rounded-full px-4 py-2.5 text-sm font-medium text-reenz-sage no-underline transition-colors hover:bg-white/10 hover:text-reenz-paper aria-[current=page]:bg-white/10 aria-[current=page]:text-reenz-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-reenz-gold max-md:flex max-md:px-4"
+              className="rounded-full px-4 py-2.5 text-sm font-medium tracking-wide text-reenz-sage/80 no-underline transition-colors hover:bg-[#193325]/40 hover:text-white aria-[current=page]:border aria-[current=page]:border-white/5 aria-[current=page]:bg-[#193325]/70 aria-[current=page]:text-reenz-paper aria-[current=page]:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-reenz-gold max-md:flex max-md:px-4 md:px-5 md:py-2 md:text-xs"
             >
               Home
             </Link>
@@ -73,7 +73,7 @@ export function StoreNavigation({ currentPage }: StoreNavigationProps) {
               href="/catalog"
               aria-current={currentPage === "catalog" ? "page" : undefined}
               onClick={closeMenu}
-              className="rounded-full px-4 py-2.5 text-sm font-medium text-reenz-sage no-underline transition-colors hover:bg-white/10 hover:text-reenz-paper aria-[current=page]:bg-white/10 aria-[current=page]:text-reenz-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-reenz-gold max-md:flex max-md:px-4"
+              className="rounded-full px-4 py-2.5 text-sm font-medium tracking-wide text-reenz-sage/80 no-underline transition-colors hover:bg-[#193325]/40 hover:text-white aria-[current=page]:border aria-[current=page]:border-white/5 aria-[current=page]:bg-[#193325]/70 aria-[current=page]:text-reenz-paper aria-[current=page]:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-reenz-gold max-md:flex max-md:px-4 md:px-5 md:py-2 md:text-xs"
             >
               Catalog
             </Link>
@@ -83,7 +83,7 @@ export function StoreNavigation({ currentPage }: StoreNavigationProps) {
               href="/contact"
               aria-current={currentPage === "contact" ? "page" : undefined}
               onClick={closeMenu}
-              className="rounded-full px-4 py-2.5 text-sm font-medium text-reenz-sage no-underline transition-colors hover:bg-white/10 hover:text-reenz-paper aria-[current=page]:bg-white/10 aria-[current=page]:text-reenz-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-reenz-gold max-md:flex max-md:px-4"
+              className="rounded-full px-4 py-2.5 text-sm font-medium tracking-wide text-reenz-sage/80 no-underline transition-colors hover:bg-[#193325]/40 hover:text-white aria-[current=page]:border aria-[current=page]:border-white/5 aria-[current=page]:bg-[#193325]/70 aria-[current=page]:text-reenz-paper aria-[current=page]:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-reenz-gold max-md:flex max-md:px-4 md:px-5 md:py-2 md:text-xs"
             >
               Contact
             </Link>
